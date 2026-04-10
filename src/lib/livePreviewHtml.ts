@@ -75,6 +75,19 @@ export function buildAcademyHtmlPreviewSrcDoc(
   return neutralizeScriptOpenTags(escapeClosingScriptTags(fullDocumentHtml));
 }
 
+/** User lab: full document preview. Safe mode strips scripts; scripts mode runs JS in a sandboxed iframe. */
+export type ProjectLabPreviewMode = 'safe' | 'scripts';
+
+export function buildProjectHtmlPreviewSrcDoc(
+  fullDocumentHtml: string,
+  mode: ProjectLabPreviewMode
+): string {
+  if (mode === 'scripts') {
+    return escapeClosingScriptTags(fullDocumentHtml);
+  }
+  return buildAcademyHtmlPreviewSrcDoc(fullDocumentHtml);
+}
+
 /**
  * Strip executable scripts; keep only script type="application/ld+json" for structured-data lessons.
  * JSON-LD blocks are extracted before escapeClosingScriptTags so real closing tags stay intact.

@@ -46,6 +46,16 @@ export interface Notification {
   createdAt: string;
 }
 
+export type LabProjectType = 'html' | 'html-css' | 'html-css-js';
+
+export interface LabProject {
+  id: string;
+  name: string;
+  type: LabProjectType;
+  code: string;
+  updatedAt: number;
+}
+
 interface AppState {
   // Theme
   theme: Theme;
@@ -118,6 +128,15 @@ interface AppState {
   // Projects
   activeProject: string | null;
   setActiveProject: (project: string | null) => void;
+
+  /** Saved HTML lab projects (editor + preview). */
+  labProjects: LabProject[];
+  addLabProject: (input: { name: string; type: LabProjectType; code: string }) => LabProject;
+  updateLabProject: (
+    id: string,
+    patch: Partial<Pick<LabProject, 'name' | 'type' | 'code'>>
+  ) => void;
+  removeLabProject: (id: string) => void;
 }
 
 const defaultAchievements: Achievement[] = [
@@ -325,6 +344,36 @@ export const useAppStore = create<AppState>()(
       activeProject: null,
       setActiveProject: (activeProject) => set({ activeProject }),
 
+      labProjects: [],
+      addLabProject: ({ name, type, code }) => {
+        const project: LabProject = {
+          id: Math.random().toString(36).slice(2, 11),
+          name: name.trim() || 'Untitled',
+          type,
+          code,
+          updatedAt: Date.now(),
+        };
+        set((state) => ({ labProjects: [project, ...state.labProjects] }));
+        return project;
+      },
+      updateLabProject: (id, patch) =>
+        set((state) => ({
+          labProjects: state.labProjects.map((p) =>
+            p.id === id
+              ? {
+                  ...p,
+                  ...patch,
+                  name: patch.name !== undefined ? patch.name.trim() || 'Untitled' : p.name,
+                  updatedAt: Date.now(),
+                }
+              : p
+          ),
+        })),
+      removeLabProject: (id) =>
+        set((state) => ({
+          labProjects: state.labProjects.filter((p) => p.id !== id),
+        })),
+
       roadmapRoleId: 'frontend',
       setRoadmapRoleId: (roadmapRoleId) => set({ roadmapRoleId }),
 
@@ -352,6 +401,7 @@ export const useAppStore = create<AppState>()(
         mistakes: state.mistakes,
         roadmapRoleId: state.roadmapRoleId,
         bookmarks: state.bookmarks,
+        labProjects: state.labProjects,
       }),
     }
   )

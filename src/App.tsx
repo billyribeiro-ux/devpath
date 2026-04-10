@@ -37,9 +37,10 @@ import { scrollToPinnedSection } from './lib/scroll';
 import { 
   MapTrifold, SquaresFour, Brain, 
   Folder, Robot, Command, MagnifyingGlass,
-  User, Bell, Fire, GraduationCap
+  User, Bell, Fire, GraduationCap, FolderPlus
 } from '@phosphor-icons/react';
 import AcademyDialog from '@/components/academy/AcademyDialog';
+import CreateProjectModal from '@/components/projects/CreateProjectModal';
 import StartLearningModal from '@/components/StartLearningModal';
 import { getAcademyTrack } from '@/academy/registry';
 
@@ -71,6 +72,7 @@ function App() {
   const [academyTrackId, setAcademyTrackId] = useState<string | null>(null);
   const [academyNonce, setAcademyNonce] = useState(0);
   const [startLearningOpen, setStartLearningOpen] = useState(false);
+  const [createProjectOpen, setCreateProjectOpen] = useState(false);
 
   const { 
     stats, 
@@ -266,16 +268,29 @@ function App() {
             <span className="text-xs text-neon font-mono bg-neon/10 px-2 py-0.5 rounded">v3</span>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setStartLearningOpen(true)}
-            className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-secondary-light transition-colors hover:border-neon/30 hover:bg-neon/10 hover:text-primary-light"
-          >
-            <GraduationCap size={18} className="text-neon" weight="fill" />
-            <span className="hidden font-mono text-[10px] uppercase tracking-[0.08em] sm:inline">
-              Start Learning
-            </span>
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setStartLearningOpen(true)}
+              className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-secondary-light transition-colors hover:border-neon/30 hover:bg-neon/10 hover:text-primary-light"
+            >
+              <GraduationCap size={18} className="text-neon" weight="fill" />
+              <span className="hidden font-mono text-[10px] uppercase tracking-[0.08em] sm:inline">
+                Start Learning
+              </span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setCreateProjectOpen(true)}
+              className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-secondary-light transition-colors hover:border-neon/30 hover:bg-neon/10 hover:text-primary-light"
+              title="Project lab"
+            >
+              <FolderPlus size={18} className="text-neon" weight="fill" />
+              <span className="hidden font-mono text-[10px] uppercase tracking-[0.08em] sm:inline">
+                New project
+              </span>
+            </button>
+          </div>
           
           <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item) => (
@@ -401,6 +416,11 @@ function App() {
           track={academyTrack}
         />
       )}
+
+      <CreateProjectModal
+        open={createProjectOpen}
+        onOpenChange={setCreateProjectOpen}
+      />
 
       <KeyboardHelp isOpen={showHelp} onClose={() => setShowHelp(false)} />
       <UserProfile isOpen={showProfile} onClose={() => setShowProfile(false)} />
