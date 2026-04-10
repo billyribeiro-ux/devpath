@@ -12,20 +12,27 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog';
-import { buildProjectHtmlPreviewSrcDoc } from '@/lib/livePreviewHtml';
 import { showDevpathToast } from '@/lib/devpathToast';
+import {
+  LAB_EDITOR_TABS,
+  buildLabMultiFilePreviewSrcDoc,
+  emptyLabFiles,
+  getLabProjectFiles,
+  labEditorTabsForType,
+  type LabEditorTab,
+} from '@/lib/labProjectFiles';
 import {
   useAppStore,
   type LabProject,
   type LabProjectType,
 } from '@/store/appStore';
 import {
-  ArrowsClockwise,
-  Copy,
-  Check,
-  FloppyDisk,
-  Plus,
-  Trash,
+  ArrowsClockwiseIcon,
+  CheckIcon,
+  CopyIcon,
+  FloppyDiskIcon,
+  PlusIcon,
+  TrashIcon,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 
@@ -35,17 +42,26 @@ type Props = {
 };
 
 const TYPE_OPTIONS: { value: LabProjectType; label: string; hint: string }[] = [
-  { value: 'html', label: 'HTML', hint: 'Markup only; scripts are not run in preview.' },
-  { value: 'html-css', label: 'HTML + CSS', hint: 'Full page with styles; scripts not run.' },
+  {
+    value: 'html',
+    label: 'HTML',
+    hint: 'Only index.html — no separate CSS/JS editors; scripts are not run in preview.',
+  },
+  {
+    value: 'html-css',
+    label: 'HTML + CSS',
+    hint: 'index.html + styles.css. Link with <link rel="stylesheet" href="styles.css" />.',
+  },
   {
     value: 'html-css-js',
     label: 'HTML + CSS + JS',
-    hint: 'Interactive preview runs in a sandboxed iframe (your code only).',
+    hint: 'All three files. Include <script src="script.js"></script> before </body>.',
   },
 ];
 
-const STARTERS: Record<LabProjectType, string> = {
-  html: `<!DOCTYPE html>
+const MULTI_STARTERS: Record<LabProjectType, Record<string, string>> = {
+  html: {
+    'index.html': `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -55,73 +71,94 @@ const STARTERS: Record<LabProjectType, string> = {
 <body>
   <main>
     <h1>Hello</h1>
-    <p>Edit this document.</p>
+    <p>This project type uses only index.html (use &lt;style&gt; here if you need CSS).</p>
   </main>
 </body>
 </html>`,
-  'html-css': `<!DOCTYPE html>
+    'styles.css': '',
+    'script.js': '',
+  },
+  'html-css': {
+    'index.html': `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My page</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      background: #f4f4f5;
-      color: #111;
-      padding: 2rem;
-    }
-    h1 { color: #0b0f16; }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <h1>Hello</h1>
-  <p>Change the HTML and CSS.</p>
+  <p>Edit HTML here and CSS in styles.css — preview merges both.</p>
 </body>
 </html>`,
-  'html-css-js': `<!DOCTYPE html>
+    'styles.css': `body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  background: #f4f4f5;
+  color: #111;
+  padding: 2rem;
+}
+
+h1 {
+  color: #0b0f16;
+}
+`,
+    'script.js': '',
+  },
+  'html-css-js': {
+    'index.html': `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>My page</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      min-height: 100vh;
-      background: #0b0f16;
-      color: #e4e9f2;
-      padding: 2rem;
-    }
-    button {
-      margin-top: 1rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-      border: 1px solid rgba(57, 255, 20, 0.4);
-      background: rgba(57, 255, 20, 0.12);
-      color: #b8ff9a;
-      cursor: pointer;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <h1 id="title">Hello</h1>
   <button type="button" id="btn">Run JS</button>
-  <script>
-    document.getElementById('btn').addEventListener('click', function () {
-      document.getElementById('title').textContent = 'From JavaScript';
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>`,
+    'styles.css': `body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: system-ui, sans-serif;
+  background: #0b0f16;
+  color: #e4e9f2;
+  padding: 2rem;
+}
+
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(57, 255, 20, 0.4);
+  background: rgba(57, 255, 20, 0.12);
+  color: #b8ff9a;
+  cursor: pointer;
+}
+`,
+    'script.js': `document.getElementById('btn').addEventListener('click', function () {
+  document.getElementById('title').textContent = 'From script.js';
+});
+`,
+  },
 };
 
 function previewModeForType(t: LabProjectType): 'safe' | 'scripts' {
   return t === 'html-css-js' ? 'scripts' : 'safe';
+}
+
+function cloneStarter(type: LabProjectType): Record<string, string> {
+  const base = emptyLabFiles();
+  const s = MULTI_STARTERS[type];
+  for (const k of LAB_EDITOR_TABS) {
+    base[k] = s[k] ?? '';
+  }
+  return base;
 }
 
 export default function CreateProjectModal({ open, onOpenChange }: Props) {
@@ -133,36 +170,58 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
   const [editingId, setEditingId] = useState<string | null>(null);
   const [projectName, setProjectName] = useState('');
   const [projectType, setProjectType] = useState<LabProjectType>('html-css');
-  const [code, setCode] = useState(STARTERS['html-css']);
+  const [files, setFiles] = useState<Record<string, string>>(() =>
+    cloneStarter('html-css')
+  );
+  const [activeTab, setActiveTab] = useState<LabEditorTab>('index.html');
   const [copied, setCopied] = useState(false);
 
-  const deferredCode = useDeferredValue(code);
+  const deferredFiles = useDeferredValue(files);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const loadProject = useCallback((p: LabProject) => {
     setEditingId(p.id);
     setProjectName(p.name);
     setProjectType(p.type);
-    setCode(p.code);
+    setFiles(getLabProjectFiles(p));
+    const first = labEditorTabsForType(p.type)[0] ?? 'index.html';
+    setActiveTab(first);
   }, []);
 
   const startNewDraft = useCallback(() => {
     setEditingId(null);
     setProjectName('');
     setProjectType('html-css');
-    setCode(STARTERS['html-css']);
+    setFiles(cloneStarter('html-css'));
+    setActiveTab('index.html');
   }, []);
 
   const srcDoc = useMemo(
     () =>
-      buildProjectHtmlPreviewSrcDoc(deferredCode, previewModeForType(projectType)),
-    [deferredCode, projectType]
+      buildLabMultiFilePreviewSrcDoc(
+        deferredFiles,
+        previewModeForType(projectType),
+        projectType
+      ),
+    [deferredFiles, projectType]
   );
 
-  const lineCount = Math.max(12, code.split('\n').length);
+  const visibleTabs = useMemo(
+    () => labEditorTabsForType(projectType),
+    [projectType]
+  );
+
+  const editorTab = useMemo((): LabEditorTab => {
+    if (visibleTabs.includes(activeTab)) return activeTab;
+    return visibleTabs[0] ?? 'index.html';
+  }, [visibleTabs, activeTab]);
+
+  const currentSource = files[editorTab] ?? '';
+
+  const lineCount = Math.max(12, currentSource.split('\n').length);
 
   const persistPatch = useCallback(
-    (patch: Partial<Pick<LabProject, 'name' | 'type' | 'code'>>) => {
+    (patch: Partial<Pick<LabProject, 'name' | 'type' | 'files'>>) => {
       if (!editingId) return;
       updateLabProject(editingId, patch);
     },
@@ -173,16 +232,20 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
     if (!editingId || !open) return;
     if (saveTimer.current) clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(() => {
-      persistPatch({ name: projectName, type: projectType, code });
+      persistPatch({ name: projectName, type: projectType, files });
     }, 500);
     return () => {
       if (saveTimer.current) clearTimeout(saveTimer.current);
     };
-  }, [editingId, open, projectName, projectType, code, persistPatch]);
+  }, [editingId, open, projectName, projectType, files, persistPatch]);
+
+  const setActiveFileContent = useCallback((value: string) => {
+    setFiles((prev) => ({ ...emptyLabFiles(), ...prev, [editorTab]: value }));
+  }, [editorTab]);
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(code);
+      await navigator.clipboard.writeText(currentSource);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
@@ -196,18 +259,32 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
       showDevpathToast('Name required', 'Add a project name before saving.', 'error');
       return;
     }
-    const created = addLabProject({ name, type: projectType, code });
+    const created = addLabProject({ name, type: projectType, files });
     setEditingId(created.id);
     showDevpathToast('Saved', `"${created.name}" is in your projects list.`, 'success');
   };
 
   const handleResetStarter = () => {
-    setCode(STARTERS[projectType]);
-    if (editingId) persistPatch({ code: STARTERS[projectType] });
+    const next = cloneStarter(projectType);
+    setFiles(next);
+    if (editingId) persistPatch({ files: next });
   };
 
   const handleTypeChange = (next: LabProjectType) => {
     setProjectType(next);
+    setActiveTab((tab) =>
+      labEditorTabsForType(next).includes(tab) ? tab : 'index.html'
+    );
+    setFiles((prev) => {
+      const merged = { ...emptyLabFiles(), ...prev };
+      const starter = MULTI_STARTERS[next];
+      for (const tab of labEditorTabsForType(next)) {
+        const cur = (merged[tab] ?? '').trim();
+        const seed = starter[tab] ?? '';
+        if (!cur && seed.trim()) merged[tab] = seed;
+      }
+      return merged;
+    });
     if (editingId) updateLabProject(editingId, { type: next });
   };
 
@@ -292,7 +369,7 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
                     onClick={startNewDraft}
                     className="btn-ghost inline-flex items-center gap-1 text-xs"
                   >
-                    <Plus size={14} />
+                    <PlusIcon size={14} />
                     New draft
                   </button>
                   {!editingId && (
@@ -301,7 +378,7 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
                       onClick={handleSaveNew}
                       className="btn-neon inline-flex items-center gap-1 text-xs"
                     >
-                      <FloppyDisk size={14} />
+                      <FloppyDiskIcon size={14} />
                       Save project
                     </button>
                   )}
@@ -336,7 +413,7 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
                           onClick={() => handleDelete(p.id)}
                           className="shrink-0 rounded p-1 text-secondary-light hover:bg-red-500/15 hover:text-red-300"
                         >
-                          <Trash size={14} />
+                          <TrashIcon size={14} />
                         </button>
                       </li>
                     ))}
@@ -349,27 +426,47 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
           <div className="flex min-h-[320px] flex-1 flex-col lg:min-h-0">
             <div className="grid min-h-0 flex-1 grid-cols-1 divide-y divide-white/10 lg:grid-cols-2 lg:divide-x lg:divide-y-0">
               <div className="flex min-h-[220px] flex-col lg:min-h-0">
-                <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-3 py-2">
-                  <span className="font-mono text-[10px] uppercase tracking-wider text-secondary-light">
-                    index.html
-                  </span>
-                  <div className="flex gap-1">
-                    <button
-                      type="button"
-                      title="Reset to starter for this type"
-                      onClick={handleResetStarter}
-                      className="rounded p-1.5 text-secondary-light hover:bg-white/10 hover:text-neon"
-                    >
-                      <ArrowsClockwise size={16} />
-                    </button>
-                    <button
-                      type="button"
-                      title="Copy"
-                      onClick={handleCopy}
-                      className="rounded p-1.5 text-secondary-light hover:bg-white/10 hover:text-neon"
-                    >
-                      {copied ? <Check size={16} className="text-neon" /> : <Copy size={16} />}
-                    </button>
+                <div className="flex flex-col gap-0 border-b border-white/10 bg-white/5">
+                  <div className="flex items-center justify-between px-2 py-1.5">
+                    <div className="flex min-w-0 flex-1 gap-0.5 overflow-x-auto">
+                      {visibleTabs.map((tab) => (
+                        <button
+                          key={tab}
+                          type="button"
+                          onClick={() => setActiveTab(tab)}
+                          className={cn(
+                            'shrink-0 rounded-md px-2.5 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors',
+                            editorTab === tab
+                              ? 'bg-neon/15 text-neon'
+                              : 'text-secondary-light hover:bg-white/10 hover:text-primary-light'
+                          )}
+                        >
+                          {tab}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="flex shrink-0 gap-1 pl-1">
+                      <button
+                        type="button"
+                        title="Reset all files to starter for this type"
+                        onClick={handleResetStarter}
+                        className="rounded p-1.5 text-secondary-light hover:bg-white/10 hover:text-neon"
+                      >
+                        <ArrowsClockwiseIcon size={16} />
+                      </button>
+                      <button
+                        type="button"
+                        title="Copy current file"
+                        onClick={handleCopy}
+                        className="rounded p-1.5 text-secondary-light hover:bg-white/10 hover:text-neon"
+                      >
+                        {copied ? (
+                          <CheckIcon size={16} className="text-neon" />
+                        ) : (
+                          <CopyIcon size={16} />
+                        )}
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <div className="flex min-h-0 flex-1">
@@ -382,8 +479,9 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
                     ))}
                   </div>
                   <textarea
-                    value={code}
-                    onChange={(e) => setCode(e.target.value)}
+                    key={editorTab}
+                    value={currentSource}
+                    onChange={(e) => setActiveFileContent(e.target.value)}
                     spellCheck={false}
                     className="min-h-0 min-w-0 flex-1 resize-none bg-transparent p-3 font-mono text-xs leading-[1.35rem] text-primary-light focus:outline-none"
                   />
@@ -394,7 +492,13 @@ export default function CreateProjectModal({ open, onOpenChange }: Props) {
                   <span className="font-mono text-[10px] uppercase tracking-wider text-neutral-600">
                     Live preview
                   </span>
-                  <span className="text-[10px] text-neutral-400">updates as you type</span>
+                  <span className="text-[10px] text-neutral-400">
+                    {projectType === 'html'
+                      ? 'index.html only'
+                      : projectType === 'html-css'
+                        ? 'HTML + linked CSS'
+                        : 'HTML + CSS + JS merged'}
+                  </span>
                 </div>
                 <iframe
                   key={projectType}

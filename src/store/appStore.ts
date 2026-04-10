@@ -52,7 +52,10 @@ export interface LabProject {
   id: string;
   name: string;
   type: LabProjectType;
-  code: string;
+  /** Multi-file lab: index.html, styles.css, script.js, … */
+  files?: Record<string, string>;
+  /** Legacy single-file projects (migrated in UI via getLabProjectFiles). */
+  code?: string;
   updatedAt: number;
 }
 
@@ -131,10 +134,14 @@ interface AppState {
 
   /** Saved HTML lab projects (editor + preview). */
   labProjects: LabProject[];
-  addLabProject: (input: { name: string; type: LabProjectType; code: string }) => LabProject;
+  addLabProject: (input: {
+    name: string;
+    type: LabProjectType;
+    files: Record<string, string>;
+  }) => LabProject;
   updateLabProject: (
     id: string,
-    patch: Partial<Pick<LabProject, 'name' | 'type' | 'code'>>
+    patch: Partial<Pick<LabProject, 'name' | 'type' | 'files' | 'code'>>
   ) => void;
   removeLabProject: (id: string) => void;
 }
@@ -345,12 +352,12 @@ export const useAppStore = create<AppState>()(
       setActiveProject: (activeProject) => set({ activeProject }),
 
       labProjects: [],
-      addLabProject: ({ name, type, code }) => {
+      addLabProject: ({ name, type, files }) => {
         const project: LabProject = {
           id: Math.random().toString(36).slice(2, 11),
           name: name.trim() || 'Untitled',
           type,
-          code,
+          files,
           updatedAt: Date.now(),
         };
         set((state) => ({ labProjects: [project, ...state.labProjects] }));
@@ -358,16 +365,19 @@ export const useAppStore = create<AppState>()(
       },
       updateLabProject: (id, patch) =>
         set((state) => ({
-          labProjects: state.labProjects.map((p) =>
-            p.id === id
-              ? {
-                  ...p,
-                  ...patch,
-                  name: patch.name !== undefined ? patch.name.trim() || 'Untitled' : p.name,
-                  updatedAt: Date.now(),
-                }
-              : p
-          ),
+          labProjects: state.labProjects.map((p) => {
+            if (p.id !== id) return p;
+            const next: LabProject = {
+              ...p,
+              ...patch,
+              name: patch.name !== undefined ? patch.name.trim() || 'Untitled' : p.name,
+              updatedAt: Date.now(),
+            };
+            if (patch.files !== undefined) {
+              return { ...next, files: patch.files, code: undefined };
+            }
+            return next;
+          }),
         })),
       removeLabProject: (id) =>
         set((state) => ({
