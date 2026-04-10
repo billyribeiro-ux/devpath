@@ -12,6 +12,8 @@ import {
   ArticleIcon,
   CodeIcon,
   MapTrifoldIcon,
+  BracketsCurlyIcon,
+  PaintBrushIcon,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 
@@ -24,9 +26,11 @@ type Props = {
 
 function academyEntryIcon(entry: (typeof academyMenuEntries)[number]) {
   if (entry.action === 'roadmap') return MapTrifoldIcon;
+  if (entry.trackId === 'html-foundations') return CodeIcon;
   if (entry.trackId === 'html-semantics') return BookOpenIcon;
+  if (entry.trackId === 'html-css') return PaintBrushIcon;
   if (entry.trackId === 'html-css-seo') return ArticleIcon;
-  return CodeIcon;
+  return BracketsCurlyIcon;
 }
 
 export default function StartLearningModal({

@@ -1,9 +1,13 @@
 import type { AcademyTrack } from './types';
+import { htmlFoundationsTrack } from './tracks/htmlFoundations';
 import { htmlSemanticsTrack } from './tracks/htmlSemantics';
+import { htmlCssTrack } from './tracks/htmlCss';
 import { htmlCssSeoTrack } from './tracks/htmlCssSeo';
 
 export const academyTracksById: Record<string, AcademyTrack> = {
+  [htmlFoundationsTrack.id]: htmlFoundationsTrack,
   [htmlSemanticsTrack.id]: htmlSemanticsTrack,
+  [htmlCssTrack.id]: htmlCssTrack,
   [htmlCssSeoTrack.id]: htmlCssSeoTrack,
 };
 
@@ -16,9 +20,19 @@ export const academyMenuEntries: {
   disabled?: boolean;
 }[] = [
   {
+    trackId: 'html-foundations',
+    label: htmlFoundationsTrack.menuLabel,
+    description: htmlFoundationsTrack.menuDescription,
+  },
+  {
     trackId: 'html-semantics',
     label: htmlSemanticsTrack.menuLabel,
     description: htmlSemanticsTrack.menuDescription,
+  },
+  {
+    trackId: 'html-css',
+    label: htmlCssTrack.menuLabel,
+    description: htmlCssTrack.menuDescription,
   },
   {
     trackId: 'html-css-seo',
