@@ -11,8 +11,8 @@ dist
 
 # Logs & caches
 *.log
-.npm
 .pnpm-debug.log*
+package-lock.json
 node_modules/.tmp
 
 # Editor & OS
