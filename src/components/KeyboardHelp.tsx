@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { X, Command, ArrowUp, ArrowDown } from '@phosphor-icons/react';
+import { XIcon, CommandIcon, ArrowUpIcon, ArrowDownIcon } from '@phosphor-icons/react';
 import { gsap } from 'gsap';
 
 interface KeyboardHelpProps {
@@ -68,7 +68,7 @@ export default function KeyboardHelp({ isOpen, onClose }: KeyboardHelpProps) {
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-neon/20 flex items-center justify-center">
-              <Command size={20} className="text-neon" weight="bold" />
+              <CommandIcon size={20} className="text-neon" weight="bold" />
             </div>
             <div>
               <h3 className="font-display text-xl font-semibold text-primary-light">
@@ -81,7 +81,7 @@ export default function KeyboardHelp({ isOpen, onClose }: KeyboardHelpProps) {
             onClick={handleClose}
             className="p-2 hover:bg-white/10 rounded-lg transition-colors"
           >
-            <X size={20} className="text-secondary-light" />
+            <XIcon size={20} className="text-secondary-light" />
           </button>
         </div>
 
@@ -101,8 +101,8 @@ export default function KeyboardHelp({ isOpen, onClose }: KeyboardHelpProps) {
 
         <div className="mt-6 pt-4 border-t border-white/10 flex items-center justify-center gap-6 text-xs text-secondary-light">
           <div className="flex items-center gap-2">
-            <ArrowUp size={14} />
-            <ArrowDown size={14} />
+            <ArrowUpIcon size={14} />
+            <ArrowDownIcon size={14} />
             <span>Scroll to navigate</span>
           </div>
         </div>

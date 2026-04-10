@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { 
-  Target, CheckCircle, Lightning, 
-  Clock, Star, Gift, Fire
+  TargetIcon, CheckCircleIcon, LightningIcon, 
+  ClockIcon, StarIcon, GiftIcon, FireIcon
 } from '@phosphor-icons/react';
 import { useAppStore } from '../store/appStore';
 import { cn } from '@/lib/utils';
@@ -38,11 +38,11 @@ export default function DailyChallenges({ embedded = false }: DailyChallengesPro
 
   const getIcon = (type: string) => {
     switch (type) {
-      case 'lesson': return Target;
-      case 'practice': return Lightning;
-      case 'review': return Star;
-      case 'project': return Gift;
-      default: return Target;
+      case 'lesson': return TargetIcon;
+      case 'practice': return LightningIcon;
+      case 'review': return StarIcon;
+      case 'project': return GiftIcon;
+      default: return TargetIcon;
     }
   };
 
@@ -51,12 +51,12 @@ export default function DailyChallenges({ embedded = false }: DailyChallengesPro
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-orange-400/30 to-orange-400/10 flex items-center justify-center">
-            <Fire size={20} className="text-orange-400" weight="fill" />
+            <FireIcon size={20} className="text-orange-400" weight="fill" />
           </div>
           <div>
             <h3 className="font-display text-lg font-semibold text-primary-light">Daily Challenges</h3>
             <span className="text-xs text-secondary-light flex items-center gap-1">
-              <Clock size={12} />
+              <ClockIcon size={12} />
               Resets in {timeLeft}
             </span>
           </div>
@@ -102,7 +102,7 @@ export default function DailyChallenges({ embedded = false }: DailyChallengesPro
               <div className="flex items-center gap-3">
                 <span className="text-xs font-mono text-neon">+{challenge.xp} XP</span>
                 {challenge.completed ? (
-                  <CheckCircle size={20} className="text-neon" weight="fill" />
+                  <CheckCircleIcon size={20} className="text-neon" weight="fill" />
                 ) : (
                   <button
                     type="button"

@@ -1,8 +1,8 @@
 import { useState, useEffect, useRef, useMemo, useCallback } from 'react';
 import { gsap } from 'gsap';
 import { 
-  MagnifyingGlass, Clock,
-  BookOpen, Code, Folder, Brain
+  MagnifyingGlassIcon, ClockIcon,
+  BookOpenIcon, CodeIcon, FolderIcon, BrainIcon
 } from '@phosphor-icons/react';
 import { useAppStore } from '../store/appStore';
 import { scrollToPinnedSection, PINNED_SECTION } from '../lib/scroll';
@@ -13,14 +13,14 @@ interface SearchModalProps {
 }
 
 const searchItems = [
-  { type: 'lesson' as const, title: 'CSS Grid Fundamentals', icon: BookOpen },
-  { type: 'lesson' as const, title: 'JavaScript Async/Await', icon: BookOpen },
-  { type: 'practice' as const, title: 'Build a Navbar', icon: Code },
-  { type: 'project' as const, title: 'Portfolio v1', icon: Folder },
-  { type: 'note' as const, title: 'When to use rem vs em', icon: Brain },
-  { type: 'lesson' as const, title: 'TypeScript Basics', icon: BookOpen },
-  { type: 'practice' as const, title: 'Responsive Cards', icon: Code },
-  { type: 'project' as const, title: 'Dashboard UI', icon: Folder },
+  { type: 'lesson' as const, title: 'CSS Grid Fundamentals', icon: BookOpenIcon },
+  { type: 'lesson' as const, title: 'JavaScript Async/Await', icon: BookOpenIcon },
+  { type: 'practice' as const, title: 'Build a Navbar', icon: CodeIcon },
+  { type: 'project' as const, title: 'Portfolio v1', icon: FolderIcon },
+  { type: 'note' as const, title: 'When to use rem vs em', icon: BrainIcon },
+  { type: 'lesson' as const, title: 'TypeScript Basics', icon: BookOpenIcon },
+  { type: 'practice' as const, title: 'Responsive Cards', icon: CodeIcon },
+  { type: 'project' as const, title: 'Dashboard UI', icon: FolderIcon },
 ];
 
 function sectionForSearchType(type: (typeof searchItems)[number]['type']): number {
@@ -110,7 +110,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
       >
         {/* Search Input */}
         <div className="flex items-center gap-3 p-4 border-b border-white/10">
-          <MagnifyingGlass size={20} className="text-secondary-light" />
+          <MagnifyingGlassIcon size={20} className="text-secondary-light" />
           <input
             ref={inputRef}
             type="text"
@@ -166,7 +166,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                       }}
                       className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left text-secondary-light hover:bg-white/5 transition-colors"
                     >
-                      <Clock size={16} />
+                      <ClockIcon size={16} />
                       <span>{term}</span>
                     </button>
                   ))}
@@ -179,7 +179,7 @@ export default function SearchModal({ isOpen, onClose }: SearchModalProps) {
                   onClick={() => setQuery(term)}
                   className="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left text-secondary-light hover:bg-white/5 transition-colors"
                 >
-                  <MagnifyingGlass size={16} />
+                  <MagnifyingGlassIcon size={16} />
                   <span>{term}</span>
                 </button>
               ))}

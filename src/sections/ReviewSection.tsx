@@ -2,8 +2,8 @@ import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  TrendUp, Clock, CaretRight, Brain,
-  Fire, Target, Sparkle, ArrowRight
+  TrendUpIcon, ClockIcon, CaretRightIcon, BrainIcon,
+  FireIcon, TargetIcon, SparkleIcon, ArrowRightIcon
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 import { useAppStore } from '../store/appStore';
@@ -13,10 +13,10 @@ import { PINNED_SECTION, scrollToPinnedSection } from '../lib/scroll';
 gsap.registerPlugin(ScrollTrigger);
 
 const reviewItems = [
-  { title: 'Flexbox alignment', due: 'Today', strength: 85, icon: Target },
-  { title: 'DOM events', due: 'Tomorrow', strength: 72, icon: Fire },
-  { title: 'TypeScript unions', due: '2 days', strength: 60, icon: Brain },
-  { title: 'Svelte runes', due: '3 days', strength: 45, icon: Sparkle }
+  { title: 'Flexbox alignment', due: 'Today', strength: 85, icon: TargetIcon },
+  { title: 'DOM events', due: 'Tomorrow', strength: 72, icon: FireIcon },
+  { title: 'TypeScript unions', due: '2 days', strength: 60, icon: BrainIcon },
+  { title: 'Svelte runes', due: '3 days', strength: 45, icon: SparkleIcon }
 ];
 
 export default function ReviewSection() {
@@ -160,7 +160,7 @@ export default function ReviewSection() {
           >
             <div className="flex items-center justify-between mb-6">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                <TrendUp size={14} className="text-neon" />
+                <TrendUpIcon size={14} className="text-neon" />
                 Retention strength
               </span>
               <span className="font-mono text-xs text-neon">Last 30 days</span>
@@ -208,7 +208,7 @@ export default function ReviewSection() {
                 <span className="text-xs text-secondary-light ml-2">avg. retention</span>
               </div>
               <div className="flex items-center gap-2 text-neon bg-neon/10 px-3 py-1.5 rounded-lg">
-                <TrendUp size={16} weight="bold" />
+                <TrendUpIcon size={16} weight="bold" />
                 <span className="font-mono text-sm">+12%</span>
               </div>
             </div>
@@ -221,7 +221,7 @@ export default function ReviewSection() {
           >
             <div className="flex items-center justify-between mb-6">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                <Clock size={14} className="text-neon" />
+                <ClockIcon size={14} className="text-neon" />
                 Due for review
               </span>
               <span className="pill pill-neon text-xs">4 items</span>
@@ -285,7 +285,7 @@ export default function ReviewSection() {
                       />
                     </div>
                   </div>
-                  <CaretRight 
+                  <CaretRightIcon 
                     size={16} 
                     className={`transition-all ${
                       hoveredItem === index ? 'text-neon translate-x-1' : 'text-white/20'
@@ -314,9 +314,9 @@ export default function ReviewSection() {
                 );
               }}
             >
-              <Brain size={18} weight="fill" />
+              <BrainIcon size={18} weight="fill" />
               Start review session
-              <ArrowRight size={16} />
+              <ArrowRightIcon size={16} />
             </button>
           </div>
         </div>

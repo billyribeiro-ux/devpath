@@ -2,9 +2,9 @@ import { useRef, useLayoutEffect, useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  ArrowRight, CaretDown, Code, Terminal, 
-  Lightning, Star, Rocket, Sparkle,
-  Play, Users, Trophy
+  ArrowRightIcon, CaretDownIcon, CodeIcon, TerminalIcon, 
+  LightningIcon, StarIcon, RocketIcon, SparkleIcon,
+  PlayIcon, UsersIcon, TrophyIcon
 } from '@phosphor-icons/react';
 import { useAppStore } from '../store/appStore';
 import { PINNED_SECTION, scrollToPinnedSection } from '../lib/scroll';
@@ -13,17 +13,17 @@ import { showDevpathToast } from '../lib/devpathToast';
 gsap.registerPlugin(ScrollTrigger);
 
 const floatingIcons = [
-  { Icon: Code, size: 48, x: '85%', y: '20%', delay: 0, opacity: 0.2 },
-  { Icon: Terminal, size: 32, x: '75%', y: '35%', delay: 0.5, opacity: 0.15 },
-  { Icon: Lightning, size: 64, x: '90%', y: '50%', delay: 1, opacity: 0.1 },
-  { Icon: Star, size: 24, x: '80%', y: '70%', delay: 0.3, opacity: 0.25 },
-  { Icon: Rocket, size: 40, x: '70%', y: '80%', delay: 0.7, opacity: 0.15 },
+  { Icon: CodeIcon, size: 48, x: '85%', y: '20%', delay: 0, opacity: 0.2 },
+  { Icon: TerminalIcon, size: 32, x: '75%', y: '35%', delay: 0.5, opacity: 0.15 },
+  { Icon: LightningIcon, size: 64, x: '90%', y: '50%', delay: 1, opacity: 0.1 },
+  { Icon: StarIcon, size: 24, x: '80%', y: '70%', delay: 0.3, opacity: 0.25 },
+  { Icon: RocketIcon, size: 40, x: '70%', y: '80%', delay: 0.7, opacity: 0.15 },
 ];
 
 const stats = [
-  { value: '50K+', label: 'Developers', icon: Users },
-  { value: '4.9', label: 'Rating', icon: Star },
-  { value: '1M+', label: 'Lessons', icon: Trophy },
+  { value: '50K+', label: 'Developers', icon: UsersIcon },
+  { value: '4.9', label: 'Rating', icon: StarIcon },
+  { value: '1M+', label: 'Lessons', icon: TrophyIcon },
 ];
 
 export default function HeroSection() {
@@ -250,7 +250,7 @@ export default function HeroSection() {
           className="inline-flex items-center gap-2 font-mono text-xs uppercase tracking-[0.15em] text-neon mb-8 px-4 py-2 bg-neon/10 rounded-full border border-neon/30"
           style={{ opacity: 0 }}
         >
-          <Sparkle size={14} className="animate-pulse" weight="fill" />
+          <SparkleIcon size={14} className="animate-pulse" weight="fill" />
           DevPath OS v3.0 — Ultimate Learning Platform
         </span>
 
@@ -261,7 +261,7 @@ export default function HeroSection() {
           style={{ perspective: '1200px' }}
         >
           <span className="word inline-block">Master</span>{' '}
-          <span className="word inline-block text-neon drop-shadow-[0_0_30px_rgba(57,255,20,0.5)]">Code.</span>
+          <span className="word inline-block text-neon drop-shadow-[0_0_30px_rgba(57,255,20,0.5)]">CodeIcon.</span>
           <br />
           <span className="word inline-block">Build</span>{' '}
           <span className="word inline-block">Your</span>{' '}
@@ -293,16 +293,16 @@ export default function HeroSection() {
               scrollToPinnedSection(PINNED_SECTION.learn);
             }}
           >
-            <Play size={22} weight="fill" className="group-hover:scale-110 transition-transform" />
+            <PlayIcon size={22} weight="fill" className="group-hover:scale-110 transition-transform" />
             Start Your Journey
-            <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            <ArrowRightIcon size={20} className="group-hover:translate-x-1 transition-transform" />
           </button>
           <button
             type="button"
             className="btn-ghost group flex items-center gap-3 text-base px-8 py-4"
             onClick={() => scrollToPinnedSection(PINNED_SECTION.roadmap)}
           >
-            <CaretDown size={20} className="group-hover:translate-y-1 transition-transform" weight="bold" />
+            <CaretDownIcon size={20} className="group-hover:translate-y-1 transition-transform" weight="bold" />
             Explore Features
           </button>
         </div>

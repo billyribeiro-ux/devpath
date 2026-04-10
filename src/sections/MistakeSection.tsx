@@ -2,9 +2,9 @@ import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  Warning, Clock, Target, TrendDown,
-  Lightning, Brain, ArrowRight, CheckCircle,
-  XCircle, WarningCircle
+  WarningIcon, ClockIcon, TargetIcon, TrendDownIcon,
+  LightningIcon, BrainIcon, ArrowRightIcon, CheckCircleIcon,
+  XCircleIcon, WarningCircleIcon
 } from '@phosphor-icons/react';
 import { useAppStore } from '../store/appStore';
 import { showDevpathToast } from '../lib/devpathToast';
@@ -103,10 +103,10 @@ export default function MistakeSection() {
 
   const getErrorIcon = (type: string) => {
     switch (type) {
-      case 'syntax': return XCircle;
-      case 'runtime': return WarningCircle;
-      case 'logic': return Brain;
-      default: return Warning;
+      case 'syntax': return XCircleIcon;
+      case 'runtime': return WarningCircleIcon;
+      case 'logic': return BrainIcon;
+      default: return WarningIcon;
     }
   };
 
@@ -161,7 +161,7 @@ export default function MistakeSection() {
           >
             <div className="flex items-center gap-4 mb-6">
               <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-red-500/30 to-red-500/10 flex items-center justify-center">
-                <WarningCircle size={28} className="text-red-400" weight="fill" />
+                <WarningCircleIcon size={28} className="text-red-400" weight="fill" />
               </div>
               <div>
                 <span className="font-mono text-xs uppercase tracking-[0.08em] text-red-400 block">
@@ -182,14 +182,14 @@ export default function MistakeSection() {
 
             <div className="flex items-center gap-6 mb-6">
               <div className="flex items-center gap-2 p-3 bg-red-500/10 rounded-lg">
-                <TrendDown size={18} className="text-red-400" />
+                <TrendDownIcon size={18} className="text-red-400" />
                 <div>
                   <span className="text-lg font-bold text-red-400 block">3</span>
                   <span className="text-xs text-secondary-light">occurrences</span>
                 </div>
               </div>
               <div className="flex items-center gap-2 p-3 bg-neon/10 rounded-lg">
-                <Target size={18} className="text-neon" />
+                <TargetIcon size={18} className="text-neon" />
                 <div>
                   <span className="text-lg font-bold text-neon block">85%</span>
                   <span className="text-xs text-secondary-light">fix rate</span>
@@ -204,14 +204,14 @@ export default function MistakeSection() {
               >
                 {isPracticing ? (
                   <>
-                    <CheckCircle size={18} weight="fill" />
+                    <CheckCircleIcon size={18} weight="fill" />
                     Practice started!
                   </>
                 ) : (
                   <>
-                    <Lightning size={18} weight="fill" />
+                    <LightningIcon size={18} weight="fill" />
                     Practice this pattern
-                    <ArrowRight size={16} />
+                    <ArrowRightIcon size={16} />
                   </>
                 )}
               </button>
@@ -225,7 +225,7 @@ export default function MistakeSection() {
           >
             <div className="flex items-center justify-between mb-6">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                <Clock size={14} className="text-neon" />
+                <ClockIcon size={14} className="text-neon" />
                 Recent errors
               </span>
               <button

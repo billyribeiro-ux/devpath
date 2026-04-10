@@ -2,9 +2,9 @@ import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  Fire, Target, BookOpen, Play, 
-  Calendar, CaretRight, TrendUp, 
-  Clock, Star, Lightning
+  FireIcon, TargetIcon, BookOpenIcon, PlayIcon, 
+  CalendarIcon, CaretRightIcon, TrendUpIcon, 
+  ClockIcon, StarIcon, LightningIcon
 } from '@phosphor-icons/react';
 import { PINNED_SECTION, scrollToPinnedSection } from '../lib/scroll';
 import { showDevpathToast } from '../lib/devpathToast';
@@ -16,7 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
   {
-    icon: Fire,
+    icon: FireIcon,
     label: 'Streak',
     value: '12 days',
     change: '+3',
@@ -24,7 +24,7 @@ const stats = [
     scrollTo: PINNED_SECTION.tryIt,
   },
   {
-    icon: Target,
+    icon: TargetIcon,
     label: 'Mastery',
     value: '34%',
     change: '+5%',
@@ -32,7 +32,7 @@ const stats = [
     scrollTo: PINNED_SECTION.review,
   },
   {
-    icon: BookOpen,
+    icon: BookOpenIcon,
     label: 'Reviews',
     value: '12 due',
     change: '2 new',
@@ -164,7 +164,7 @@ export default function DashboardSection() {
               Today's <span className="text-neon">focus</span>
             </h2>
             <p className="mt-2 text-secondary-light flex items-center gap-2">
-              <Clock size={14} className="text-neon" />
+              <ClockIcon size={14} className="text-neon" />
               <span className="text-sm">Wednesday, January 15</span>
             </p>
           </div>
@@ -202,12 +202,12 @@ export default function DashboardSection() {
           >
             <div className="flex items-center justify-between mb-4">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-neon flex items-center gap-2">
-                <Lightning size={14} weight="fill" />
+                <LightningIcon size={14} weight="fill" />
                 Current lesson
               </span>
               <div className="flex items-center gap-1">
                 {[1, 2, 3].map((i) => (
-                  <Star 
+                  <StarIcon 
                     key={i} 
                     size={12} 
                     className={i <= 2 ? 'text-neon' : 'text-white/20'}
@@ -223,11 +223,11 @@ export default function DashboardSection() {
 
             <div className="flex items-center gap-4 mb-4">
               <span className="pill pill-default text-xs flex items-center gap-1">
-                <TrendUp size={10} />
+                <TrendUpIcon size={10} />
                 Intermediate
               </span>
               <span className="text-xs text-secondary-light flex items-center gap-1">
-                <Clock size={12} />
+                <ClockIcon size={12} />
                 15 min
               </span>
             </div>
@@ -245,7 +245,7 @@ export default function DashboardSection() {
                 className="btn-neon group flex items-center gap-2"
                 onClick={() => scrollToPinnedSection(PINNED_SECTION.learn)}
               >
-                <Play size={18} weight="fill" className="group-hover:scale-110 transition-transform" />
+                <PlayIcon size={18} weight="fill" className="group-hover:scale-110 transition-transform" />
                 Start lesson
               </button>
               <button
@@ -272,7 +272,7 @@ export default function DashboardSection() {
           <div ref={sideCardsRef} className="flex flex-col gap-4 w-[30vw]">
             <div className="side-card card-dark p-6 flex-1 hover:border-neon/20 transition-colors">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2 mb-3">
-                <Target size={14} className="text-neon" />
+                <TargetIcon size={14} className="text-neon" />
                 Next up
               </span>
               <p className="text-primary-light text-sm mb-2">
@@ -287,7 +287,7 @@ export default function DashboardSection() {
                 onClick={() => scrollToPinnedSection(PINNED_SECTION.tryIt)}
               >
                 <span className="font-mono text-xs group-hover:underline">View task</span>
-                <CaretRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                <CaretRightIcon size={14} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
 
@@ -297,7 +297,7 @@ export default function DashboardSection() {
               onClick={() => scrollToPinnedSection(PINNED_SECTION.review)}
             >
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2 mb-3">
-                <Calendar size={14} className="text-neon" />
+                <CalendarIcon size={14} className="text-neon" />
                 Weekly review
               </span>
               <p className="text-primary-light text-sm mb-1">

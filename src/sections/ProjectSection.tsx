@@ -2,9 +2,9 @@ import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  Folder, GitCommit, CheckCircle, Rocket,
-  Code, GitPullRequest, Bug, Star,
-  CaretRight, ArrowUpRight
+  FolderIcon, GitCommitIcon, CheckCircleIcon, RocketIcon,
+  CodeIcon, GitPullRequestIcon, BugIcon, StarIcon,
+  CaretRightIcon, ArrowUpRightIcon
 } from '@phosphor-icons/react';
 import { useAppStore } from '../store/appStore';
 import { showDevpathToast } from '../lib/devpathToast';
@@ -18,26 +18,26 @@ import {
 gsap.registerPlugin(ScrollTrigger);
 
 const timelineEvents = [
-  { title: 'Initialized SvelteKit', icon: Rocket, completed: true, time: 'Jan 10' },
-  { title: 'Built navbar component', icon: CheckCircle, completed: true, time: 'Jan 12' },
-  { title: 'Added responsive grid', icon: Code, completed: true, time: 'Jan 14' },
-  { title: 'Deployed to Vercel', icon: Rocket, completed: false, time: 'Pending' },
+  { title: 'Initialized SvelteKit', icon: RocketIcon, completed: true, time: 'Jan 10' },
+  { title: 'Built navbar component', icon: CheckCircleIcon, completed: true, time: 'Jan 12' },
+  { title: 'Added responsive grid', icon: CodeIcon, completed: true, time: 'Jan 14' },
+  { title: 'Deployed to Vercel', icon: RocketIcon, completed: false, time: 'Pending' },
 ];
 
 const timelineEventsFull = [
-  { title: 'Repo scaffold & linting', icon: GitCommit, completed: true, time: 'Jan 6' },
-  { title: 'Design tokens in CSS', icon: Code, completed: true, time: 'Jan 7' },
+  { title: 'Repo scaffold & linting', icon: GitCommitIcon, completed: true, time: 'Jan 6' },
+  { title: 'Design tokens in CSS', icon: CodeIcon, completed: true, time: 'Jan 7' },
   ...timelineEvents,
-  { title: 'E2E tests for nav', icon: CheckCircle, completed: false, time: 'Backlog' },
+  { title: 'E2E tests for nav', icon: CheckCircleIcon, completed: false, time: 'Backlog' },
 ];
 
 const concepts = ['SvelteKit', 'CSS Grid', 'Responsive', 'Components'];
 
 const stats = [
-  { label: 'Components', value: '4', icon: Code },
-  { label: 'Commits', value: '12', icon: GitCommit },
-  { label: 'Fixes', value: '3', icon: Bug },
-  { label: 'Deploys', value: '1', icon: Rocket }
+  { label: 'Components', value: '4', icon: CodeIcon },
+  { label: 'Commits', value: '12', icon: GitCommitIcon },
+  { label: 'Fixes', value: '3', icon: BugIcon },
+  { label: 'Deploys', value: '1', icon: RocketIcon }
 ];
 
 export default function ProjectSection() {
@@ -177,7 +177,7 @@ export default function ProjectSection() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon/30 to-neon/10 flex items-center justify-center">
-                  <Folder size={24} className="text-neon" weight="fill" />
+                  <FolderIcon size={24} className="text-neon" weight="fill" />
                 </div>
                 <div>
                   <h3 className="font-display text-xl font-semibold text-primary-light">
@@ -194,7 +194,7 @@ export default function ProjectSection() {
                 onClick={openRepo}
                 title="Open GitHub"
               >
-                <ArrowUpRight size={20} className="text-secondary-light" />
+                <ArrowUpRightIcon size={20} className="text-secondary-light" />
               </button>
             </div>
 
@@ -235,7 +235,7 @@ export default function ProjectSection() {
                 </span>
               </div>
               <div className="flex items-center gap-2">
-                <GitPullRequest size={16} className="text-secondary-light" />
+                <GitPullRequestIcon size={16} className="text-secondary-light" />
                 <span className="text-xs text-secondary-light">2 open PRs</span>
               </div>
             </div>
@@ -248,7 +248,7 @@ export default function ProjectSection() {
           >
             <div className="flex items-center justify-between mb-6">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                <GitCommit size={14} className="text-neon" />
+                <GitCommitIcon size={14} className="text-neon" />
                 Timeline
               </span>
               <button
@@ -302,7 +302,7 @@ export default function ProjectSection() {
                         {event.completed ? 'Completed' : 'Pending'}
                       </span>
                     </div>
-                    <CaretRight 
+                    <CaretRightIcon 
                       size={16} 
                       className={`transition-all mt-1 ${
                         hoveredEvent === index ? 'text-neon translate-x-1' : 'text-white/20'
@@ -332,7 +332,7 @@ export default function ProjectSection() {
                 showDevpathToast('Shipped', 'Project marked complete — +200 XP.', 'achievement');
               }}
             >
-              <Star size={18} weight="fill" />
+              <StarIcon size={18} weight="fill" />
               Mark as complete
             </button>
           </div>

@@ -2,9 +2,9 @@ import { useRef, useLayoutEffect, useState, useEffect, useMemo, useCallback } fr
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  FloppyDisk, ChatTeardropText, Brain, 
-  MagicWand, CheckCircle,
-  Microphone, TextT
+  FloppyDiskIcon, ChatTeardropTextIcon, BrainIcon, 
+  MagicWandIcon, CheckCircleIcon,
+  MicrophoneIcon, TextTIcon
 } from '@phosphor-icons/react';
 import { showDevpathToast } from '../lib/devpathToast';
 import { useAppStore } from '../store/appStore';
@@ -250,7 +250,7 @@ export default function ExplainSection() {
           >
             <div className="flex items-center gap-2 mb-4">
               <div className="w-10 h-10 rounded-lg bg-neon/20 flex items-center justify-center">
-                <Brain size={20} className="text-neon" weight="fill" />
+                <BrainIcon size={20} className="text-neon" weight="fill" />
               </div>
               <div>
                 <span className="font-mono text-xs uppercase tracking-[0.08em] text-neon block">
@@ -266,7 +266,7 @@ export default function ExplainSection() {
 
             <div className="flex-1">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2 mb-4">
-                <ChatTeardropText size={14} />
+                <ChatTeardropTextIcon size={14} />
                 Guiding questions
               </span>
               <div className="space-y-4">
@@ -283,7 +283,7 @@ export default function ExplainSection() {
 
             <div className="mt-4 p-4 bg-gradient-to-br from-neon/10 to-transparent rounded-lg border border-neon/20">
               <div className="flex items-center gap-2 mb-2">
-                <MagicWand size={14} className="text-neon" />
+                <MagicWandIcon size={14} className="text-neon" />
                 <span className="text-xs text-neon font-mono">Tip</span>
               </div>
               <p className="text-xs text-secondary-light">
@@ -299,7 +299,7 @@ export default function ExplainSection() {
           >
             <div className="flex items-center justify-between mb-4">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                <TextT size={14} />
+                <TextTIcon size={14} />
                 Your explanation
               </span>
               <div className="flex items-center gap-2">
@@ -312,7 +312,7 @@ export default function ExplainSection() {
                   onClick={toggleVoice}
                   title={listening ? 'Stop voice input' : 'Start voice input'}
                 >
-                  <Microphone size={18} weight={listening ? 'fill' : 'regular'} />
+                  <MicrophoneIcon size={18} weight={listening ? 'fill' : 'regular'} />
                 </button>
               </div>
             </div>
@@ -348,12 +348,12 @@ export default function ExplainSection() {
               >
                 {saved ? (
                   <>
-                    <CheckCircle size={16} weight="fill" />
+                    <CheckCircleIcon size={16} weight="fill" />
                     Saved!
                   </>
                 ) : (
                   <>
-                    <FloppyDisk size={16} weight="fill" />
+                    <FloppyDiskIcon size={16} weight="fill" />
                     Save explanation
                   </>
                 )}

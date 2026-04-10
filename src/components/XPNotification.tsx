@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
-import { Star, Lightning } from '@phosphor-icons/react';
+import { StarIcon, LightningIcon } from '@phosphor-icons/react';
 
 interface XPNotificationProps {
   amount: number;
@@ -48,12 +48,12 @@ export default function XPNotification({ amount, reason, onComplete }: XPNotific
     <div className="xp-notification fixed bottom-8 left-1/2 -translate-x-1/2 z-[500]">
       <div className="bg-gradient-to-r from-neon/20 via-neon/30 to-neon/20 border border-neon/50 rounded-2xl px-8 py-4 flex items-center gap-4 shadow-2xl shadow-neon/20">
         <div className="w-12 h-12 rounded-full bg-neon/30 flex items-center justify-center animate-pulse">
-          <Lightning size={24} className="text-neon" weight="fill" />
+          <LightningIcon size={24} className="text-neon" weight="fill" />
         </div>
         <div>
           <div className="flex items-center gap-2">
             <span className="text-3xl font-display font-bold text-neon">+{amount}</span>
-            <Star size={20} className="text-yellow-400" weight="fill" />
+            <StarIcon size={20} className="text-yellow-400" weight="fill" />
           </div>
           <p className="text-sm text-primary-light">{reason}</p>
         </div>

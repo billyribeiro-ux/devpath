@@ -9,18 +9,18 @@ import {
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  ChatTeardropText, BookOpen, Bug, Users,
-  PaperPlaneRight, DotsThree,
-  Circle, Sparkle, MagicWand, StopCircle
+  ChatTeardropTextIcon, BookOpenIcon, BugIcon, UsersIcon,
+  PaperPlaneRightIcon, DotsThreeIcon,
+  CircleIcon, SparkleIcon, MagicWandIcon, StopCircleIcon
 } from '@phosphor-icons/react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const modes = [
-  { id: 'coach', label: 'Coach', icon: ChatTeardropText, desc: 'Hints & guidance', color: 'text-blue-400' },
-  { id: 'teacher', label: 'Teacher', icon: BookOpen, desc: 'Clear explanations', color: 'text-green-400' },
-  { id: 'debugger', label: 'Debugger', icon: Bug, desc: 'Fix code issues', color: 'text-red-400' },
-  { id: 'interviewer', label: 'Interviewer', icon: Users, desc: 'Test knowledge', color: 'text-purple-400' }
+  { id: 'coach', label: 'Coach', icon: ChatTeardropTextIcon, desc: 'Hints & guidance', color: 'text-blue-400' },
+  { id: 'teacher', label: 'Teacher', icon: BookOpenIcon, desc: 'Clear explanations', color: 'text-green-400' },
+  { id: 'debugger', label: 'Debugger', icon: BugIcon, desc: 'Fix code issues', color: 'text-red-400' },
+  { id: 'interviewer', label: 'Interviewer', icon: UsersIcon, desc: 'Test knowledge', color: 'text-purple-400' }
 ];
 
 const sampleMessages = [
@@ -225,7 +225,7 @@ export default function MentorSection() {
           <div className="mt-6 p-4 bg-white/5 rounded-xl border border-white/10">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <StopCircle size={16} className="text-neon" />
+                <StopCircleIcon size={16} className="text-neon" />
                 <span className="text-sm text-secondary-light">Never reveal solutions</span>
               </div>
               <button 
@@ -267,14 +267,14 @@ export default function MentorSection() {
               <div>
                 <span className="text-primary-light text-sm font-medium">AI Mentor</span>
                 <span className="text-xs text-secondary-light block flex items-center gap-1">
-                  <Sparkle size={10} className="text-neon" />
+                  <SparkleIcon size={10} className="text-neon" />
                   Mode: {activeModeData?.label}
                 </span>
               </div>
             </div>
             <div className="flex items-center gap-3">
               <span className="pill pill-neon text-xs flex items-center gap-1">
-                <Circle size={8} weight="fill" className="animate-pulse" />
+                <CircleIcon size={8} weight="fill" className="animate-pulse" />
                 Online
               </span>
               <DropdownMenu>
@@ -284,7 +284,7 @@ export default function MentorSection() {
                     className="p-2 hover:bg-white/10 rounded-lg transition-colors"
                     aria-label="Chat actions"
                   >
-                    <DotsThree size={20} className="text-secondary-light" />
+                    <DotsThreeIcon size={20} className="text-secondary-light" />
                   </button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
@@ -371,13 +371,13 @@ export default function MentorSection() {
                 className="btn-neon px-4 flex items-center gap-2"
                 disabled={!input.trim() || isTyping}
               >
-                <PaperPlaneRight size={18} weight="fill" />
+                <PaperPlaneRightIcon size={18} weight="fill" />
               </button>
             </div>
             <div className="mt-2 flex items-center justify-between text-xs text-secondary-light/60">
               <span>Press Enter to send</span>
               <span className="flex items-center gap-1">
-                <MagicWand size={10} />
+                <MagicWandIcon size={10} />
                 AI-powered responses
               </span>
             </div>

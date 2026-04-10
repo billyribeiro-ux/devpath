@@ -2,9 +2,9 @@ import { useRef, useLayoutEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  BookOpen, Lightbulb, Code, Copy, 
-  Check, ArrowRight, BookmarkSimple,
-  ShareNetwork, Question
+  BookOpenIcon, LightbulbIcon, CodeIcon, CopyIcon, 
+  CheckIcon, ArrowRightIcon, BookmarkSimpleIcon,
+  ShareNetworkIcon, QuestionIcon
 } from '@phosphor-icons/react';
 import { PINNED_SECTION, scrollToPinnedSection } from '../lib/scroll';
 import { showDevpathToast } from '../lib/devpathToast';
@@ -15,19 +15,19 @@ gsap.registerPlugin(ScrollTrigger);
 
 const tags = [
   {
-    icon: BookOpen,
+    icon: BookOpenIcon,
     label: 'Concept',
     color: 'bg-blue-500/20 text-blue-400',
     scrollTo: PINNED_SECTION.explain,
   },
   {
-    icon: Code,
+    icon: CodeIcon,
     label: 'Example',
     color: 'bg-neon/20 text-neon',
     scrollTo: PINNED_SECTION.tryIt,
   },
   {
-    icon: Lightbulb,
+    icon: LightbulbIcon,
     label: 'Analogy',
     color: 'bg-yellow-500/20 text-yellow-400',
     scrollTo: PINNED_SECTION.explain,
@@ -60,7 +60,7 @@ export default function LearnSection() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      showDevpathToast('Copy failed', 'Could not access the clipboard.', 'error');
+      showDevpathToast('CopyIcon failed', 'Could not access the clipboard.', 'error');
     }
   };
 
@@ -204,7 +204,7 @@ export default function LearnSection() {
               }}
               className={`p-3 rounded-lg transition-all ${bookmarked ? 'bg-neon/20 text-neon' : 'bg-white/5 text-secondary-light hover:bg-white/10'}`}
             >
-              <BookmarkSimple size={20} weight={bookmarked ? 'fill' : 'regular'} />
+              <BookmarkSimpleIcon size={20} weight={bookmarked ? 'fill' : 'regular'} />
             </button>
             <button
               type="button"
@@ -219,14 +219,14 @@ export default function LearnSection() {
                 }
               }}
             >
-              <ShareNetwork size={20} />
+              <ShareNetworkIcon size={20} />
             </button>
             <button
               type="button"
               className="p-3 bg-white/5 rounded-lg text-secondary-light hover:bg-white/10 transition-colors"
               onClick={() => scrollToPinnedSection(PINNED_SECTION.mentor)}
             >
-              <Question size={20} />
+              <QuestionIcon size={20} />
             </button>
           </div>
         </div>
@@ -259,7 +259,7 @@ export default function LearnSection() {
 
             <div className="bg-gradient-to-br from-white/10 to-white/5 rounded-xl p-6 border border-white/10">
               <h4 className="font-mono text-sm text-primary-light mb-3 flex items-center gap-2">
-                <Lightbulb size={16} className="text-yellow-400" weight="fill" />
+                <LightbulbIcon size={16} className="text-yellow-400" weight="fill" />
                 The Key Difference
               </h4>
               <p className="text-lg">
@@ -274,7 +274,7 @@ export default function LearnSection() {
             <div className="grid grid-cols-2 gap-4">
               <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-neon/30 transition-colors">
                 <span className="font-mono text-xs text-neon block mb-2 flex items-center gap-2">
-                  <Check size={14} weight="bold" />
+                  <CheckIcon size={14} weight="bold" />
                   auto-fit
                 </span>
                 <p className="text-sm">
@@ -284,7 +284,7 @@ export default function LearnSection() {
               </div>
               <div className="bg-white/5 rounded-xl p-5 border border-white/10 hover:border-blue-400/30 transition-colors">
                 <span className="font-mono text-xs text-blue-400 block mb-2 flex items-center gap-2">
-                  <Check size={14} weight="bold" />
+                  <CheckIcon size={14} weight="bold" />
                   auto-fill
                 </span>
                 <p className="text-sm">
@@ -302,8 +302,8 @@ export default function LearnSection() {
                     onClick={handleCopy}
                     className="text-xs text-secondary-light hover:text-neon transition-colors flex items-center gap-1"
                   >
-                    {copied ? <Check size={14} className="text-neon" /> : <Copy size={14} />}
-                    {copied ? 'Copied!' : 'Copy'}
+                    {copied ? <CheckIcon size={14} className="text-neon" /> : <CopyIcon size={14} />}
+                    {copied ? 'Copied!' : 'CopyIcon'}
                   </button>
                 </div>
                 <pre className="text-sm text-primary-light font-mono leading-relaxed">{cssSnippet}</pre>
@@ -324,7 +324,7 @@ export default function LearnSection() {
                 onClick={() => scrollToPinnedSection(PINNED_SECTION.tryIt)}
               >
                 Next: Try it
-                <ArrowRight size={16} />
+                <ArrowRightIcon size={16} />
               </button>
             </div>
           </div>

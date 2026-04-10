@@ -8,10 +8,10 @@ import { learningRoles } from '@/data/learningRoles';
 import { useAppStore } from '@/store/appStore';
 import { academyMenuEntries } from '@/academy/registry';
 import {
-  BookOpen,
-  Article,
-  Code,
-  MapTrifold,
+  BookOpenIcon,
+  ArticleIcon,
+  CodeIcon,
+  MapTrifoldIcon,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 
@@ -23,10 +23,10 @@ type Props = {
 };
 
 function academyEntryIcon(entry: (typeof academyMenuEntries)[number]) {
-  if (entry.action === 'roadmap') return MapTrifold;
-  if (entry.trackId === 'html-semantics') return BookOpen;
-  if (entry.trackId === 'html-css-seo') return Article;
-  return Code;
+  if (entry.action === 'roadmap') return MapTrifoldIcon;
+  if (entry.trackId === 'html-semantics') return BookOpenIcon;
+  if (entry.trackId === 'html-css-seo') return ArticleIcon;
+  return CodeIcon;
 }
 
 export default function StartLearningModal({

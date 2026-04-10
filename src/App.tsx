@@ -35,9 +35,9 @@ import { scrollToPinnedSection } from './lib/scroll';
 
 // Import icons
 import { 
-  MapTrifold, SquaresFour, Brain, 
-  Folder, Robot, Command, MagnifyingGlass,
-  User, Bell, Fire, GraduationCap, FolderPlus
+  MapTrifoldIcon, SquaresFourIcon, BrainIcon, 
+  FolderIcon, RobotIcon, CommandIcon, MagnifyingGlassIcon,
+  UserIcon, BellIcon, FireIcon, GraduationCapIcon, FolderPlusIcon
 } from '@phosphor-icons/react';
 import AcademyDialog from '@/components/academy/AcademyDialog';
 import CreateProjectModal from '@/components/projects/CreateProjectModal';
@@ -47,11 +47,11 @@ import { getAcademyTrack } from '@/academy/registry';
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const navItems = [
-  { label: 'Roadmap', icon: MapTrifold, section: 1 },
-  { label: 'Dashboard', icon: SquaresFour, section: 2 },
-  { label: 'Notes', icon: Brain, section: 8 },
-  { label: 'Projects', icon: Folder, section: 9 },
-  { label: 'Mentor', icon: Robot, section: 11 },
+  { label: 'Roadmap', icon: MapTrifoldIcon, section: 1 },
+  { label: 'Dashboard', icon: SquaresFourIcon, section: 2 },
+  { label: 'Notes', icon: BrainIcon, section: 8 },
+  { label: 'Projects', icon: FolderIcon, section: 9 },
+  { label: 'Mentor', icon: RobotIcon, section: 11 },
 ];
 
 function App() {
@@ -260,7 +260,7 @@ function App() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-8 h-8 rounded-lg bg-neon/20 flex items-center justify-center">
-              <Command size={18} className="text-neon" weight="fill" />
+              <CommandIcon size={18} className="text-neon" weight="fill" />
             </div>
             <span className="font-mono text-sm font-bold text-primary-light">
               DevPath OS
@@ -274,7 +274,7 @@ function App() {
               onClick={() => setStartLearningOpen(true)}
               className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-secondary-light transition-colors hover:border-neon/30 hover:bg-neon/10 hover:text-primary-light"
             >
-              <GraduationCap size={18} className="text-neon" weight="fill" />
+              <GraduationCapIcon size={18} className="text-neon" weight="fill" />
               <span className="hidden font-mono text-[10px] uppercase tracking-[0.08em] sm:inline">
                 Start Learning
               </span>
@@ -285,7 +285,7 @@ function App() {
               className="flex items-center gap-2 rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-secondary-light transition-colors hover:border-neon/30 hover:bg-neon/10 hover:text-primary-light"
               title="Project lab"
             >
-              <FolderPlus size={18} className="text-neon" weight="fill" />
+              <FolderPlusIcon size={18} className="text-neon" weight="fill" />
               <span className="hidden font-mono text-[10px] uppercase tracking-[0.08em] sm:inline">
                 New project
               </span>
@@ -311,7 +311,7 @@ function App() {
               onClick={() => setShowSearch(true)}
               className="hidden md:flex items-center gap-2 px-3 py-2 bg-white/5 rounded-lg text-secondary-light hover:bg-white/10 transition-colors"
             >
-              <MagnifyingGlass size={16} />
+              <MagnifyingGlassIcon size={16} />
               <span className="text-xs">Search</span>
               <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-[10px] font-mono">⌘K</kbd>
             </button>
@@ -326,7 +326,7 @@ function App() {
                 onClick={() => setShowNotifications((v) => !v)}
                 className="relative p-2 bg-white/5 rounded-lg text-secondary-light hover:bg-white/10 transition-colors"
               >
-                <Bell size={18} />
+                <BellIcon size={18} />
                 {unreadNotifications > 0 && (
                   <span className="absolute -top-1 -right-1 min-w-4 h-4 px-0.5 bg-neon rounded-full text-[10px] text-background font-bold flex items-center justify-center">
                     {unreadNotifications}
@@ -377,7 +377,7 @@ function App() {
 
             {/* Streak */}
             <div className="hidden md:flex items-center gap-2 px-3 py-2 bg-orange-500/10 rounded-lg">
-              <Fire size={16} className="text-orange-400" weight="fill" />
+              <FireIcon size={16} className="text-orange-400" weight="fill" />
               <span className="text-sm font-bold text-orange-400">{stats.streak}</span>
             </div>
 
@@ -386,7 +386,7 @@ function App() {
               onClick={() => setShowProfile(true)}
               className="w-9 h-9 rounded-lg bg-gradient-to-br from-neon/30 to-neon/10 flex items-center justify-center hover:scale-105 transition-transform"
             >
-              <User size={18} className="text-neon" weight="fill" />
+              <UserIcon size={18} className="text-neon" weight="fill" />
             </button>
 
             {/* Help */}

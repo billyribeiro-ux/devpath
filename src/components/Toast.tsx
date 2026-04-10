@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { gsap } from 'gsap';
 import { 
-  CheckCircle, Warning, Info, Trophy,
-  X
+  CheckCircleIcon, WarningIcon, InfoIcon, TrophyIcon,
+  XIcon
 } from '@phosphor-icons/react';
 
 export type ToastType = 'success' | 'error' | 'info' | 'achievement';
@@ -17,10 +17,10 @@ interface ToastProps {
 }
 
 const icons = {
-  success: CheckCircle,
-  error: Warning,
-  info: Info,
-  achievement: Trophy,
+  success: CheckCircleIcon,
+  error: WarningIcon,
+  info: InfoIcon,
+  achievement: TrophyIcon,
 };
 
 const colors = {
@@ -87,7 +87,7 @@ export function Toast({ id, title, message, type, onClose, duration = 5000 }: To
           onClick={handleClose}
           className="p-1 hover:bg-white/10 rounded transition-colors"
         >
-          <X size={16} />
+          <XIcon size={16} />
         </button>
       </div>
     </div>

@@ -9,11 +9,11 @@ import { buildAcademyHtmlPreviewSrcDoc } from '@/lib/livePreviewHtml';
 import { showDevpathToast } from '@/lib/devpathToast';
 import type { AcademyTrack, LessonBlock } from '@/academy/types';
 import {
-  CaretLeft,
-  CaretRight,
-  ArrowsClockwise,
-  Copy,
-  Check,
+  CaretLeftIcon,
+  CaretRightIcon,
+  ArrowsClockwiseIcon,
+  CopyIcon,
+  CheckIcon,
 } from '@phosphor-icons/react';
 import { cn } from '@/lib/utils';
 
@@ -93,7 +93,7 @@ export default function AcademyDialog({ open, onOpenChange, track }: Props) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      showDevpathToast('Copy failed', 'Clipboard not available.', 'error');
+      showDevpathToast('CopyIcon failed', 'Clipboard not available.', 'error');
     }
   };
 
@@ -139,7 +139,7 @@ export default function AcademyDialog({ open, onOpenChange, track }: Props) {
                 onClick={() => goLesson(lessonIndex - 1)}
                 className="btn-ghost flex items-center gap-1 text-xs disabled:opacity-40"
               >
-                <CaretLeft size={16} />
+                <CaretLeftIcon size={16} />
                 Previous
               </button>
               <button
@@ -149,7 +149,7 @@ export default function AcademyDialog({ open, onOpenChange, track }: Props) {
                 className="btn-neon ml-auto flex items-center gap-1 text-xs disabled:opacity-40"
               >
                 Next
-                <CaretRight size={16} />
+                <CaretRightIcon size={16} />
               </button>
             </div>
           </div>
@@ -169,15 +169,15 @@ export default function AcademyDialog({ open, onOpenChange, track }: Props) {
                       onClick={() => setHtml(lesson.starterHtml)}
                       className="rounded p-1.5 text-secondary-light hover:bg-white/10 hover:text-neon"
                     >
-                      <ArrowsClockwise size={16} />
+                      <ArrowsClockwiseIcon size={16} />
                     </button>
                     <button
                       type="button"
-                      title="Copy"
+                      title="CopyIcon"
                       onClick={handleCopy}
                       className="rounded p-1.5 text-secondary-light hover:bg-white/10 hover:text-neon"
                     >
-                      {copied ? <Check size={16} className="text-neon" /> : <Copy size={16} />}
+                      {copied ? <CheckIcon size={16} className="text-neon" /> : <CopyIcon size={16} />}
                     </button>
                   </div>
                 </div>

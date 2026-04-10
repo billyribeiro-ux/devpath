@@ -2,8 +2,8 @@ import { useRef, useLayoutEffect, useState, useMemo, useDeferredValue } from 're
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  ArrowsClockwise, Eye, Play, 
-  Copy, Check, Download, Share
+  ArrowsClockwiseIcon, EyeIcon, PlayIcon, 
+  CopyIcon, CheckIcon, DownloadIcon, ShareIcon
 } from '@phosphor-icons/react';
 import { showDevpathToast } from '../lib/devpathToast';
 import {
@@ -56,7 +56,7 @@ export default function TrySection() {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      showDevpathToast('Copy failed', 'Could not access the clipboard.', 'error');
+      showDevpathToast('CopyIcon failed', 'Could not access the clipboard.', 'error');
     }
   };
 
@@ -192,9 +192,9 @@ export default function TrySection() {
                   type="button"
                   onClick={handleCopy}
                   className="p-2 hover:bg-white/10 rounded-lg transition-colors text-secondary-light hover:text-neon"
-                  title="Copy code"
+                  title="CopyIcon code"
                 >
-                  {copied ? <Check size={16} className="text-neon" /> : <Copy size={16} />}
+                  {copied ? <CheckIcon size={16} className="text-neon" /> : <CopyIcon size={16} />}
                 </button>
                 <button
                   type="button"
@@ -202,7 +202,7 @@ export default function TrySection() {
                   className="p-2 hover:bg-white/10 rounded-lg transition-colors text-secondary-light hover:text-neon"
                   title="Reset code"
                 >
-                  <ArrowsClockwise size={16} />
+                  <ArrowsClockwiseIcon size={16} />
                 </button>
               </div>
             </div>
@@ -237,7 +237,7 @@ export default function TrySection() {
                 onClick={handleRun}
                 className="btn-neon text-sm flex items-center gap-2 px-4 py-2"
               >
-                <Play size={14} weight="fill" className={isRunning ? 'animate-pulse' : ''} />
+                <PlayIcon size={14} weight="fill" className={isRunning ? 'animate-pulse' : ''} />
                 Run
               </button>
             </div>
@@ -251,7 +251,7 @@ export default function TrySection() {
             {/* Preview Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-white/5">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                <Eye size={14} className="text-neon" />
+                <EyeIcon size={14} className="text-neon" />
                 Live preview
                 <span className="normal-case text-[10px] text-white/40 font-sans tracking-normal">
                   (updates as you type)
@@ -261,7 +261,7 @@ export default function TrySection() {
                 <button
                   type="button"
                   className="p-2 hover:bg-white/10 rounded-lg transition-colors text-secondary-light"
-                  title="Download as styles.css"
+                  title="DownloadIcon as styles.css"
                   onClick={() => {
                     const blob = new Blob([code], { type: 'text/css;charset=utf-8' });
                     const a = document.createElement('a');
@@ -272,22 +272,22 @@ export default function TrySection() {
                     showDevpathToast('Downloaded', 'Saved as styles.css', 'success');
                   }}
                 >
-                  <Download size={16} />
+                  <DownloadIcon size={16} />
                 </button>
                 <button
                   type="button"
                   className="p-2 hover:bg-white/10 rounded-lg transition-colors text-secondary-light"
-                  title="Copy snippet"
+                  title="CopyIcon snippet"
                   onClick={async () => {
                     try {
                       await navigator.clipboard.writeText(code);
                       showDevpathToast('Shared', 'CSS copied to clipboard.', 'success');
                     } catch {
-                      showDevpathToast('Share', 'Could not copy to clipboard.', 'error');
+                      showDevpathToast('ShareIcon', 'Could not copy to clipboard.', 'error');
                     }
                   }}
                 >
-                  <Share size={16} />
+                  <ShareIcon size={16} />
                 </button>
               </div>
             </div>

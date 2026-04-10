@@ -2,9 +2,9 @@ import { useRef, useLayoutEffect, useState, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  Tag, LinkSimple, FileText, Plus,
-  MagnifyingGlass, DotsThree, ShareNetwork,
-  PushPin, Clock
+  TagIcon, LinkSimpleIcon, FileTextIcon, PlusIcon,
+  MagnifyingGlassIcon, DotsThreeIcon, ShareNetworkIcon,
+  PushPinIcon, ClockIcon
 } from '@phosphor-icons/react';
 import {
   DropdownMenu,
@@ -174,7 +174,7 @@ export default function NotesSection() {
             {/* Editor Header */}
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-white/5">
               <div className="flex items-center gap-3">
-                <FileText size={18} className="text-neon" />
+                <FileTextIcon size={18} className="text-neon" />
                 <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light">
                   Note
                 </span>
@@ -185,7 +185,7 @@ export default function NotesSection() {
                   onClick={() => setIsPinned(!isPinned)}
                   className={`p-2 rounded-lg transition-colors ${isPinned ? 'bg-neon/20 text-neon' : 'text-secondary-light hover:bg-white/10'}`}
                 >
-                  <PushPin size={18} weight={isPinned ? 'fill' : 'regular'} />
+                  <PushPinIcon size={18} weight={isPinned ? 'fill' : 'regular'} />
                 </button>
                 <button
                   type="button"
@@ -200,7 +200,7 @@ export default function NotesSection() {
                     }
                   }}
                 >
-                  <ShareNetwork size={18} />
+                  <ShareNetworkIcon size={18} />
                 </button>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -209,7 +209,7 @@ export default function NotesSection() {
                       className="p-2 text-secondary-light hover:bg-white/10 rounded-lg transition-colors"
                       aria-label="Note actions"
                     >
-                      <DotsThree size={18} />
+                      <DotsThreeIcon size={18} />
                     </button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent
@@ -267,7 +267,7 @@ export default function NotesSection() {
               <div className="flex flex-wrap gap-2 mb-6">
                 {[...noteTags, ...extraTags].map((tag) => (
                   <span key={tag.name} className={`pill ${tag.color} flex items-center gap-1.5 text-xs`}>
-                    <Tag size={10} weight="fill" />
+                    <TagIcon size={10} weight="fill" />
                     {tag.name}
                   </span>
                 ))}
@@ -279,10 +279,10 @@ export default function NotesSection() {
                       if (prev.some((t) => t.name === 'Demo')) return prev;
                       return [...prev, { name: 'Demo', color: 'bg-neon/20 text-neon' }];
                     });
-                    showDevpathToast('Tag added', 'Added tag “Demo” to this note.', 'success');
+                    showDevpathToast('TagIcon added', 'Added tag “Demo” to this note.', 'success');
                   }}
                 >
-                  <Plus size={10} />
+                  <PlusIcon size={10} />
                   Add tag
                 </button>
               </div>
@@ -309,11 +309,11 @@ export default function NotesSection() {
             {/* Editor Footer */}
             <div className="px-6 py-3 border-t border-white/10 bg-white/5 flex items-center justify-between">
               <div className="flex items-center gap-2 text-xs text-secondary-light">
-                <LinkSimple size={14} className="text-neon" />
+                <LinkSimpleIcon size={14} className="text-neon" />
                 <span>Linked to 5 concepts</span>
               </div>
               <div className="flex items-center gap-2 text-xs text-secondary-light">
-                <Clock size={14} />
+                <ClockIcon size={14} />
                 <span>Edited 2h ago</span>
               </div>
             </div>
@@ -327,11 +327,11 @@ export default function NotesSection() {
             {/* Graph Header */}
             <div className="flex items-center justify-between mb-4">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                <LinkSimple size={14} className="text-neon" />
+                <LinkSimpleIcon size={14} className="text-neon" />
                 Linked concepts
               </span>
               <div className="relative">
-                <MagnifyingGlass size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-secondary-light" />
+                <MagnifyingGlassIcon size={14} className="absolute left-2 top-1/2 -translate-y-1/2 text-secondary-light" />
                 <input
                   type="text"
                   value={searchQuery}

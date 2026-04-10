@@ -2,9 +2,9 @@ import { useRef, useLayoutEffect, useState, useMemo, useDeferredValue } from 're
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { 
-  Check, PaperPlaneRight, Monitor, 
-  ListChecks, Clock, Trophy, 
-  GitBranch
+  CheckIcon, PaperPlaneRightIcon, MonitorIcon, 
+  ListChecksIcon, ClockIcon, TrophyIcon, 
+  GitBranchIcon
 } from '@phosphor-icons/react';
 import { buildHtmlCssPreviewSrcDoc } from '../lib/livePreviewHtml';
 
@@ -239,11 +239,11 @@ export default function BuildSection() {
           >
             <div className="flex items-center justify-between mb-4">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-neon flex items-center gap-2">
-                <Trophy size={14} weight="fill" />
+                <TrophyIcon size={14} weight="fill" />
                 Feature Task
               </span>
               <div className="flex items-center gap-2">
-                <GitBranch size={14} className="text-secondary-light" />
+                <GitBranchIcon size={14} className="text-secondary-light" />
                 <span className="text-xs text-secondary-light font-mono">main</span>
               </div>
             </div>
@@ -259,7 +259,7 @@ export default function BuildSection() {
             <div className="flex-1 flex flex-col min-h-0 gap-3">
               <div className="flex items-center justify-between shrink-0">
                 <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                  <ListChecks size={14} />
+                  <ListChecksIcon size={14} />
                   Acceptance criteria
                 </span>
                 <span className="text-xs font-mono text-neon">
@@ -275,7 +275,7 @@ export default function BuildSection() {
                     onClick={() => toggleCheck(item.id)}
                   >
                     <div className={`checklist-circle transition-all ${checked.includes(item.id) ? 'checked' : 'group-hover:border-neon/50'}`}>
-                      {checked.includes(item.id) && <Check size={12} className="text-background" weight="bold" />}
+                      {checked.includes(item.id) && <CheckIcon size={12} className="text-background" weight="bold" />}
                     </div>
                     <span className={`text-sm flex-1 transition-all ${
                       checked.includes(item.id) ? 'text-primary-light line-through opacity-50' : 'text-secondary-light group-hover:text-primary-light'
@@ -319,7 +319,7 @@ export default function BuildSection() {
             <div className="mt-6 pt-4 border-t border-white/10">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-xs text-secondary-light">
-                  <Clock size={14} />
+                  <ClockIcon size={14} />
                   <span>Est. 45 min</span>
                 </div>
                 <button
@@ -328,7 +328,7 @@ export default function BuildSection() {
                   className={`btn-neon flex items-center gap-2 transition-all ${!allChecked ? 'opacity-50 cursor-not-allowed' : 'hover:scale-105'}`}
                   disabled={!allChecked}
                 >
-                  <PaperPlaneRight size={16} weight="fill" />
+                  <PaperPlaneRightIcon size={16} weight="fill" />
                   {allChecked ? 'Submit & celebrate!' : 'Complete all tasks'}
                 </button>
               </div>
@@ -343,7 +343,7 @@ export default function BuildSection() {
             {/* Preview Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-white/10 bg-white/5">
               <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-                <Monitor size={14} className="text-neon" />
+                <MonitorIcon size={14} className="text-neon" />
                 Preview
               </span>
               <div className="flex gap-1.5">

@@ -1,7 +1,7 @@
 import { useRef, useLayoutEffect, useState, useEffect, useMemo } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Circle, CheckCircle, CaretRight, Lock, Sparkle } from '@phosphor-icons/react';
+import { CircleIcon, CheckCircleIcon, CaretRightIcon, LockIcon, SparkleIcon } from '@phosphor-icons/react';
 import { useAppStore } from '../store/appStore';
 import { scrollToPinnedSection } from '../lib/scroll';
 import { getCurriculumForRole, type CurriculumRoadmapRow } from '../data/roleCurricula';
@@ -202,7 +202,7 @@ export default function RoadmapSection() {
         >
           <div className="flex items-center justify-between gap-4 mb-3">
             <span className="font-mono text-xs uppercase tracking-[0.08em] text-secondary-light flex items-center gap-2">
-              <Sparkle size={14} className="text-neon" weight="fill" />
+              <SparkleIcon size={14} className="text-neon" weight="fill" />
               Your curriculum
             </span>
             <span className="font-mono text-xs text-neon shrink-0">{progress}% complete</span>
@@ -284,17 +284,17 @@ function RoadmapLessonRow({
     >
       <div className="relative z-10 pt-0.5">
         {item.completed ? (
-          <CheckCircle size={28} className="text-neon" weight="fill" />
+          <CheckCircleIcon size={28} className="text-neon" weight="fill" />
         ) : item.locked ? (
           <div className="w-7 h-7 rounded-full bg-white/10 flex items-center justify-center">
-            <Lock size={14} className="text-white/40" />
+            <LockIcon size={14} className="text-white/40" />
           </div>
         ) : item.current ? (
           <div className="w-7 h-7 rounded-full bg-neon/20 flex items-center justify-center ring-2 ring-neon ring-offset-2 ring-offset-background">
             <div className="w-3 h-3 rounded-full bg-neon animate-pulse" />
           </div>
         ) : (
-          <Circle size={28} className="text-white/30" weight="regular" />
+          <CircleIcon size={28} className="text-white/30" weight="regular" />
         )}
       </div>
       <div className="flex-1 min-w-0">
@@ -317,7 +317,7 @@ function RoadmapLessonRow({
         )}
       </div>
       {!item.locked && (
-        <CaretRight 
+        <CaretRightIcon 
           size={16} 
           className={`shrink-0 mt-1 transition-all ${
             hoveredItem === index ? 'text-neon translate-x-1' : 'text-white/20'

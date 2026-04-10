@@ -1,7 +1,7 @@
 import { useState, useRef } from 'react';
 import { 
-  User, Crown, Fire, Star, Trophy,
-  SignOut, Camera, Pencil, Bell
+  UserIcon, CrownIcon, FireIcon, StarIcon, TrophyIcon,
+  SignOutIcon, CameraIcon, PencilIcon, BellIcon
 } from '@phosphor-icons/react';
 import { useAppStore } from '../store/appStore';
 
@@ -58,7 +58,7 @@ export default function UserProfile({ isOpen, onClose }: UserProfileProps) {
                 {avatar ? (
                   <img src={avatar} alt="" className="h-full w-full object-cover" />
                 ) : (
-                  <User size={32} className="text-neon" weight="fill" />
+                  <UserIcon size={32} className="text-neon" weight="fill" />
                 )}
               </div>
               <input
@@ -81,7 +81,7 @@ export default function UserProfile({ isOpen, onClose }: UserProfileProps) {
                 onClick={() => avatarInputRef.current?.click()}
                 aria-label="Change profile photo"
               >
-                <Camera size={14} />
+                <CameraIcon size={14} />
               </button>
             </div>
             <div>
@@ -104,13 +104,13 @@ export default function UserProfile({ isOpen, onClose }: UserProfileProps) {
                     onClick={() => setIsEditing(true)}
                     className="p-1 hover:bg-white/10 rounded transition-colors"
                   >
-                    <Pencil size={14} className="text-secondary-light" />
+                    <PencilIcon size={14} className="text-secondary-light" />
                   </button>
                 </div>
               )}
               <div className="flex items-center gap-2 mt-1">
                 <span className="pill pill-neon text-xs flex items-center gap-1">
-                  <Crown size={12} weight="fill" />
+                  <CrownIcon size={12} weight="fill" />
                   Level {stats.level}
                 </span>
                 <span className="text-xs text-secondary-light">{stats.xp.toLocaleString()} XP</span>
@@ -160,17 +160,17 @@ export default function UserProfile({ isOpen, onClose }: UserProfileProps) {
               {/* Stats Grid */}
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-white/5 rounded-xl p-4 text-center">
-                  <Fire size={24} className="text-orange-400 mx-auto mb-2" weight="fill" />
+                  <FireIcon size={24} className="text-orange-400 mx-auto mb-2" weight="fill" />
                   <span className="text-2xl font-display font-bold text-primary-light">{stats.streak}</span>
                   <span className="text-xs text-secondary-light block">Day Streak</span>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4 text-center">
-                  <Trophy size={24} className="text-yellow-400 mx-auto mb-2" weight="fill" />
+                  <TrophyIcon size={24} className="text-yellow-400 mx-auto mb-2" weight="fill" />
                   <span className="text-2xl font-display font-bold text-primary-light">{unlockedAchievements.length}</span>
                   <span className="text-xs text-secondary-light block">Achievements</span>
                 </div>
                 <div className="bg-white/5 rounded-xl p-4 text-center">
-                  <Star size={24} className="text-neon mx-auto mb-2" weight="fill" />
+                  <StarIcon size={24} className="text-neon mx-auto mb-2" weight="fill" />
                   <span className="text-2xl font-display font-bold text-primary-light">{stats.completedLessons}</span>
                   <span className="text-xs text-secondary-light block">Lessons</span>
                 </div>
@@ -196,7 +196,7 @@ export default function UserProfile({ isOpen, onClose }: UserProfileProps) {
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
                     achievement.unlockedAt ? 'bg-neon/20' : 'bg-white/10'
                   }`}>
-                    <Trophy 
+                    <TrophyIcon 
                       size={24} 
                       className={achievement.unlockedAt ? 'text-neon' : 'text-white/40'}
                       weight={achievement.unlockedAt ? 'fill' : 'regular'}
@@ -236,7 +236,7 @@ export default function UserProfile({ isOpen, onClose }: UserProfileProps) {
             <div className="space-y-4">
               <div className="flex items-center justify-between p-4 bg-white/5 rounded-xl">
                 <div className="flex items-center gap-3">
-                  <Bell size={20} className="text-secondary-light" />
+                  <BellIcon size={20} className="text-secondary-light" />
                   <span className="text-primary-light">Notifications</span>
                 </div>
                 <button
@@ -278,7 +278,7 @@ export default function UserProfile({ isOpen, onClose }: UserProfileProps) {
 
               <div className="p-4 bg-white/5 rounded-xl">
                 <div className="flex items-center gap-3 mb-3">
-                  <Fire size={20} className="text-orange-400" />
+                  <FireIcon size={20} className="text-orange-400" />
                   <span className="text-primary-light">Streak Freeze</span>
                   <span className="ml-auto text-neon font-mono">{stats.streakFreeze}</span>
                 </div>
@@ -295,7 +295,7 @@ export default function UserProfile({ isOpen, onClose }: UserProfileProps) {
                   window.location.reload();
                 }}
               >
-                <SignOut size={20} />
+                <SignOutIcon size={20} />
                 <span>Sign Out</span>
               </button>
             </div>
